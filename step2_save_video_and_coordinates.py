@@ -11,7 +11,7 @@ csv_writer = csv.writer(csv_file)
 
 # Record the video stream using codec_id for MP4
 fourcc = cv2.VideoWriter_fourcc('F','M','P','4')
-record_video = cv2.VideoWriter('recorded_video.mp4', fourcc, 20.0, (int(cap.get(3)),int(cap.get(4))))
+record_video = cv2.VideoWriter('recorded_video.mp4', fourcc, 20.0, (int(cap.get(3)),int(cap.get(4)))) # Here it takes the height and width of the live stream video
 
 # Initialize frame number
 frame_number = 0
@@ -57,7 +57,6 @@ while True:
 
     # Write the frame to the recorded video
     record_video.write(frame)
-    cv2.imshow('Result', frame)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break

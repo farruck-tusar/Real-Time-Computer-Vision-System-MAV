@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-import csv
 
 
 # Callback function for trackbars
@@ -40,7 +39,6 @@ def stackImages(scale,imgArray):
         ver = hor
     return ver
 
-
 # Initializing video capture from default camera - 0
 cap = cv2.VideoCapture(0)
 
@@ -79,6 +77,8 @@ while True:
 
     # Masking for detecting defined object
     mask = cv2.inRange(hsv, lower, upper)
+
+    # Removal or erosion of noises using np matrix from the mask
     kernel = np.ones((5, 5), np.uint8)
     mask = cv2.erode(mask, kernel)
 
@@ -91,11 +91,8 @@ while True:
         area = cv2.contourArea(cnt)
         approx = cv2.approxPolyDP(cnt, 0.02 * cv2.arcLength(cnt, True), True)
 
-        # Ignore all the other detected object whose area is smaller than 50k
+        # Ignore all the other detected object whose area is smaller than 500
         if area > 500:
-            # Calculate the bounding box coordinates
-            x, y, width, height = cv2.boundingRect(cnt)
-
             # Find the center of contour where cX gives the x coordinate of the controid and cY gives the y coordinate of the centroid
             M = cv2.moments(cnt)
             cX = int(M["m10"] / M["m00"])
@@ -111,7 +108,6 @@ while True:
                 cv2.putText(frame, "Undefined", (cX, cY), font, 1, (0, 0, 0))
 
     imgStack = stackImages(0.5,([frame,mask]))
-
     cv2.imshow('Stack Images', imgStack)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):

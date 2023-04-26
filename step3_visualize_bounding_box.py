@@ -2,10 +2,10 @@ import cv2
 import csv
 
 # Load the recorded video
-cap = cv2.VideoCapture('recorded_video.mp4')  # Change the file name if using a different video file
+cap = cv2.VideoCapture('recorded_video.mp4')
 
 # Open the CSV file containing bounding box coordinates
-with open('bounding_box_coordinates.csv', 'r') as csvfile:  # Change the file name if using a different CSV file
+with open('bounding_box_coordinates.csv', 'r') as csvfile:
     reader = csv.reader(csvfile)
     bounding_boxes = []
     for row in reader:
@@ -20,11 +20,12 @@ with open('bounding_box_coordinates.csv', 'r') as csvfile:  # Change the file na
 frame_num = 0  # Start from the first frame
 
 while True:
-    ret, frame = cap.read()  # Capture a frame from the video
+    success, frame = cap.read()
 
-    if not ret:
+    # Break if video stream capture is failed
+    if not success:
         break
-    print(bounding_boxes)
+
     # Get the bounding boxes for the current frame from the CSV file
     while bounding_boxes and bounding_boxes[0][0] == frame_num:
         # Draw the bounding box on the frame
