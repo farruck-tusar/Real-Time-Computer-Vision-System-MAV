@@ -4,7 +4,7 @@ DESIGN AND IMPLEMENTATION OF A REAL-TIME COMPUTER VISION SYSTEM ON AN EMBEDDED P
 Author: [Farruck Ahamed Tusar](https://github.com/farruck-tusar)
 
 ## Installation
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install PySide6.
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install opencv.
 
 ```bash
 pip install opencv-python
